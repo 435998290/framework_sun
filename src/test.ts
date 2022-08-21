@@ -9,7 +9,5 @@ const sun = new Sun({
 
 console.log('hello world');
 
-sun.data = {
-    name: 'Sunwy',
-    age: 25
-}
+sun.data.name = 'swy';
+sun.data.age = 25;
