@@ -1,4 +1,4 @@
-import { getBindItem } from "../utils";
+import { getBindItem } from "../utils/process-utils";
 
 export class ElementSubscriber {
   element: Element;
@@ -11,15 +11,16 @@ export class ElementSubscriber {
     this.element = element;
     this.initData = { textContent: element.textContent };
     this.bindMap = {};
-    const bindItems = getBindItem(element.textContent || "");
+    const bindItems = getBindItem(element.textContent || "") || [];
     bindItems.forEach((bindItem) => {
       this.bindMap[bindItem.slice(2, -2)] = "";
     });
   }
-  publish(key: string, value: any) {
+  publish(data: { key: string; value: any }) {
+    const { key, value } = data;
     console.error("start generateTextContent", key, value);
     this.bindMap[key] = value;
-    console.log('bindMap', this.bindMap);
+    console.log("bindMap", this.bindMap);
     const textContent = this.generateTextContent();
     console.error("update text content", textContent);
     this.element.textContent = textContent;
